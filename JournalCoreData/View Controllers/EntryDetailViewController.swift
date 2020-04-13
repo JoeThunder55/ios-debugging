@@ -8,10 +8,31 @@
 
 import UIKit
 
+
+
+
 class EntryDetailViewController: UIViewController {
+    
+    @IBOutlet weak var moodSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var bodyTextView: UITextView!
+    
+    var entry: Entry?
+    
+       var entryController: EntryController?
+       
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
+        DispatchQueue.main.async {
+            
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateViews()
     }
     
     @IBAction func saveEntry(_ sender: Any) {
@@ -41,13 +62,15 @@ class EntryDetailViewController: UIViewController {
     }
     
     private func updateViews() {
+        
         guard let entry = entry else {
                 title = "Create Entry"
                 return
         }
         
         title = entry.title
-        titleTextField.text = entry.title
+        
+        titleTextField.text = title
         bodyTextView.text = entry.bodyText
         
         var segmentIndex = 0
@@ -66,16 +89,7 @@ class EntryDetailViewController: UIViewController {
         moodSegmentedControl.selectedSegmentIndex = segmentIndex
     }
     
-    var entry: Entry? {
-        didSet {
-            updateViews()
-        }
-    }
-    
-    var entryController: EntryController?
-    
-    @IBOutlet weak var moodSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var bodyTextView: UITextView!
+   
+
 
 }
